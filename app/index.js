@@ -1,6 +1,8 @@
 "use strict";
 import React from 'react';
 import {render} from 'react-dom';
+import {Router, Route, hashHistory} from 'react-router'
+
 import LeagueList from './components/LeagueList';
 
 class App extends React.Component {
@@ -10,7 +12,9 @@ class App extends React.Component {
 
     render() {
         return (
-            <LeagueList />
+            <Router history={hashHistory}>
+                <Route path="/" component={LeagueList}/>
+            </Router>
         );
     }
 }

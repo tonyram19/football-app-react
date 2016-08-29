@@ -1,7 +1,7 @@
 "use strict";
 import React from 'react';
 
-class League extends React.Component {
+class Team extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -9,10 +9,10 @@ class League extends React.Component {
     render() {
         return (
             <div>
-                <a href="/#/leagueTable">{this.props.league.caption}</a>
+                <a href="#">{this.props.teamName}</a>
             </div>
         );
     }
 }
 
-export default League;
+export default Team;
