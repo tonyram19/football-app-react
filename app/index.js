@@ -12,7 +12,7 @@ class App extends React.Component {
 
         this.setCurrentLeague = this.setCurrentLeague.bind(this);
         this.setTableView = this.setTableView.bind(this);
-        this.setLeaguesView = this.setLeaguesView.bind(this);
+        this.setCompetitionsView = this.setCompetitionsView.bind(this);
 
         this.state = {
            currentLeague: 0,
@@ -34,7 +34,7 @@ class App extends React.Component {
         this.setCurrentLeague(leagueID);
     }
 
-    setLeaguesView() {
+    setCompetitionsView() {
         this.setState({
             currentView: 'competitions'
         });
@@ -46,7 +46,7 @@ class App extends React.Component {
             return(<Competitions setTableView={this.setTableView} />);
         }
         else if (this.state.currentView == 'leagueTable') {
-            return(<LeagueTable currentLeague={this.state.currentLeague} />);
+            return(<LeagueTable setCompetitionsView={this.setCompetitionsView} currentLeague={this.state.currentLeague} />);
         }
 
     }

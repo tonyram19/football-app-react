@@ -57,7 +57,7 @@
 	
 	var _reactDom = __webpack_require__(/*! react-dom */ 34);
 	
-	var _Competitions = __webpack_require__(/*! ./components/Competitions */ 197);
+	var _Competitions = __webpack_require__(/*! ./components/Competitions */ 172);
 	
 	var _Competitions2 = _interopRequireDefault(_Competitions);
 	
@@ -83,7 +83,7 @@
 	
 	        _this.setCurrentLeague = _this.setCurrentLeague.bind(_this);
 	        _this.setTableView = _this.setTableView.bind(_this);
-	        _this.setLeaguesView = _this.setLeaguesView.bind(_this);
+	        _this.setCompetitionsView = _this.setCompetitionsView.bind(_this);
 	
 	        _this.state = {
 	            currentLeague: 0,
@@ -109,8 +109,8 @@
 	            this.setCurrentLeague(leagueID);
 	        }
 	    }, {
-	        key: 'setLeaguesView',
-	        value: function setLeaguesView() {
+	        key: 'setCompetitionsView',
+	        value: function setCompetitionsView() {
 	            this.setState({
 	                currentView: 'competitions'
 	            });
@@ -121,7 +121,7 @@
 	            if (this.state.currentView == 'competitions') {
 	                return _react2.default.createElement(_Competitions2.default, { setTableView: this.setTableView });
 	            } else if (this.state.currentView == 'leagueTable') {
-	                return _react2.default.createElement(_LeagueTable2.default, { currentLeague: this.state.currentLeague });
+	                return _react2.default.createElement(_LeagueTable2.default, { setCompetitionsView: this.setCompetitionsView, currentLeague: this.state.currentLeague });
 	            }
 	        }
 	    }]);
@@ -21996,7 +21996,169 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! (webpack)/~/node-libs-browser/~/process/browser.js */ 3)))
 
 /***/ },
-/* 172 */,
+/* 172 */
+/*!****************************************!*\
+  !*** ./app/components/Competitions.js ***!
+  \****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _axios = __webpack_require__(/*! axios */ 173);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	var _League = __webpack_require__(/*! ./League */ 195);
+	
+	var _League2 = _interopRequireDefault(_League);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Competitions = function (_React$Component) {
+	    _inherits(Competitions, _React$Component);
+	
+	    function Competitions(props) {
+	        _classCallCheck(this, Competitions);
+	
+	        var _this = _possibleConstructorReturn(this, (Competitions.__proto__ || Object.getPrototypeOf(Competitions)).call(this, props));
+	
+	        _this.getLeagues = _this.getLeagues.bind(_this);
+	        _this.setList = _this.setList.bind(_this);
+	        _this.showLoadingScreen = _this.showLoadingScreen.bind(_this);
+	        _this.showLeaguesScreen = _this.showLeaguesScreen.bind(_this);
+	
+	        _this.state = {
+	            list: []
+	        };
+	
+	        _this.getLeagues();
+	        return _this;
+	    }
+	
+	    _createClass(Competitions, [{
+	        key: 'setList',
+	        value: function setList(leaguesList) {
+	            this.setState({
+	                list: leaguesList
+	            });
+	        }
+	    }, {
+	        key: 'getLeagues',
+	        value: function getLeagues() {
+	            var scope = this;
+	
+	            _axios2.default.get('https://api.football-data.org/v1/competitions/?season=2016', {
+	                headers: { 'X-Auth-Token': '1d8e93dbf9104d589b510b458144851b' }
+	            }).then(function (response) {
+	                scope.setList(response.data);
+	                console.log(response.data);
+	            }).catch(function (error) {
+	                console.log("My error: " + error);
+	            });
+	        }
+	    }, {
+	        key: 'showLoadingScreen',
+	        value: function showLoadingScreen() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'container' },
+	                _react2.default.createElement(
+	                    'h2',
+	                    null,
+	                    'Loading...'
+	                )
+	            );
+	        }
+	    }, {
+	        key: 'showLeaguesScreen',
+	        value: function showLeaguesScreen() {
+	            var _this2 = this;
+	
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'container' },
+	                _react2.default.createElement(
+	                    'h1',
+	                    null,
+	                    'Competitions'
+	                ),
+	                _react2.default.createElement(
+	                    'table',
+	                    { className: 'table-striped table-condensed' },
+	                    _react2.default.createElement(
+	                        'thead',
+	                        null,
+	                        _react2.default.createElement(
+	                            'tr',
+	                            null,
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'League'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'ID'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'tbody',
+	                        null,
+	                        this.state.list.map(function (league, key) {
+	                            return _react2.default.createElement(
+	                                'tr',
+	                                { key: league.id },
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement(_League2.default, { league: league, setTableView: _this2.props.setTableView })
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    league.id
+	                                )
+	                            );
+	                        })
+	                    )
+	                )
+	            );
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            if (this.state.list.length == 0) {
+	                return this.showLoadingScreen();
+	            } else {
+	                return this.showLeaguesScreen();
+	            }
+	        }
+	    }]);
+	
+	    return Competitions;
+	}(_react2.default.Component);
+	
+	exports.default = Competitions;
+
+/***/ },
 /* 173 */
 /*!**************************!*\
   !*** ./~/axios/index.js ***!
@@ -23485,6 +23647,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _axios = __webpack_require__(/*! axios */ 173);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -23501,189 +23667,38 @@
 	
 	        var _this = _possibleConstructorReturn(this, (LeagueTable.__proto__ || Object.getPrototypeOf(LeagueTable)).call(this, props));
 	
-	        _this.loadRequest = _this.loadRequest.bind(_this);
-	        return _this;
-	    }
-	
-	    _createClass(LeagueTable, [{
-	        key: 'loadRequest',
-	        value: function loadRequest(url) {
-	            var headers = { 'X-Auth-Token': '1d8e93dbf9104d589b510b458144851b' };
-	            return _react2.default.createElement(
-	                Request,
-	                {
-	                    url: url,
-	                    method: 'get',
-	                    accept: 'application/json',
-	                    headers: headers,
-	                    verbose: true
-	                },
-	                function (_ref) {
-	                    var error = _ref.error;
-	                    var result = _ref.result;
-	                    var loading = _ref.loading;
-	
-	                    if (loading) {
-	                        return _react2.default.createElement(
-	                            'div',
-	                            { className: 'container' },
-	                            _react2.default.createElement(
-	                                'h1',
-	                                null,
-	                                'Loading...'
-	                            )
-	                        );
-	                    } else {
-	                        return _react2.default.createElement(
-	                            'div',
-	                            { className: 'container' },
-	                            _react2.default.createElement(
-	                                'h1',
-	                                null,
-	                                'Competitions'
-	                            ),
-	                            _react2.default.createElement(
-	                                'table',
-	                                { className: 'table-striped table-condensed' },
-	                                _react2.default.createElement(
-	                                    'thead',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        'tr',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'th',
-	                                            null,
-	                                            'League'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'th',
-	                                            null,
-	                                            'Teams'
-	                                        )
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'tbody',
-	                                    null,
-	                                    result.body.map(function (league, key) {
-	                                        return _react2.default.createElement(
-	                                            'tr',
-	                                            { key: league.id },
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                null,
-	                                                _react2.default.createElement(League, { leagueName: league.caption })
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                null,
-	                                                league.numberOfTeams
-	                                            )
-	                                        );
-	                                    })
-	                                )
-	                            )
-	                        );
-	                    }
-	                }
-	            );
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement(
-	                    'h1',
-	                    null,
-	                    ' ',
-	                    this.props.currentLeague
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return LeagueTable;
-	}(_react2.default.Component);
-	
-	exports.default = LeagueTable;
-
-/***/ },
-/* 197 */
-/*!****************************************!*\
-  !*** ./app/components/Competitions.js ***!
-  \****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _axios = __webpack_require__(/*! axios */ 173);
-	
-	var _axios2 = _interopRequireDefault(_axios);
-	
-	var _League = __webpack_require__(/*! ./League */ 195);
-	
-	var _League2 = _interopRequireDefault(_League);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Competitions = function (_React$Component) {
-	    _inherits(Competitions, _React$Component);
-	
-	    function Competitions(props) {
-	        _classCallCheck(this, Competitions);
-	
-	        var _this = _possibleConstructorReturn(this, (Competitions.__proto__ || Object.getPrototypeOf(Competitions)).call(this, props));
-	
-	        _this.getLeagues = _this.getLeagues.bind(_this);
-	        _this.setList = _this.setList.bind(_this);
+	        _this.getTable = _this.getTable.bind(_this);
+	        _this.setTable = _this.setTable.bind(_this);
 	        _this.showLoadingScreen = _this.showLoadingScreen.bind(_this);
 	        _this.showLeaguesScreen = _this.showLeaguesScreen.bind(_this);
 	
 	        _this.state = {
-	            list: []
+	            table: null
 	        };
 	
-	        _this.getLeagues();
+	        _this.getTable();
 	        return _this;
 	    }
 	
-	    _createClass(Competitions, [{
-	        key: 'setList',
-	        value: function setList(leaguesList) {
-	            this.setState({
-	                list: leaguesList
+	    _createClass(LeagueTable, [{
+	        key: 'getTable',
+	        value: function getTable() {
+	            var scope = this;
+	
+	            _axios2.default.get('https://api.football-data.org/v1/competitions/' + this.props.currentLeague + '/leagueTable', {
+	                headers: { 'X-Auth-Token': '1d8e93dbf9104d589b510b458144851b' }
+	            }).then(function (response) {
+	                scope.setTable(response.data);
+	                console.log(response.data);
+	            }).catch(function (error) {
+	                console.log("My error: " + error);
 	            });
 	        }
 	    }, {
-	        key: 'getLeagues',
-	        value: function getLeagues() {
-	            var scope = this;
-	
-	            _axios2.default.get('https://api.football-data.org/v1/competitions/?season=2016', {
-	                headers: { 'X-Auth-Token': '1d8e93dbf9104d589b510b458144851b' }
-	            }).then(function (response) {
-	                scope.setList(response.data);
-	            }).catch(function (error) {
-	                console.log("My error: " + error);
+	        key: 'setTable',
+	        value: function setTable(table) {
+	            this.setState({
+	                table: table
 	            });
 	        }
 	    }, {
@@ -23710,7 +23725,14 @@
 	                _react2.default.createElement(
 	                    'h1',
 	                    null,
-	                    'Competitions'
+	                    this.state.table.leagueCaption
+	                ),
+	                _react2.default.createElement(
+	                    'a',
+	                    { href: '#', onClick: function onClick() {
+	                            return _this2.props.setCompetitionsView();
+	                        } },
+	                    'Go back'
 	                ),
 	                _react2.default.createElement(
 	                    'table',
@@ -23724,31 +23746,111 @@
 	                            _react2.default.createElement(
 	                                'th',
 	                                null,
-	                                'League'
+	                                'Pos.'
 	                            ),
 	                            _react2.default.createElement(
 	                                'th',
 	                                null,
-	                                'ID'
+	                                'Team'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'Pts.'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'P'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'W'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'L'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'D'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'G'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'GA'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'GD'
 	                            )
 	                        )
 	                    ),
 	                    _react2.default.createElement(
 	                        'tbody',
 	                        null,
-	                        this.state.list.map(function (league, key) {
+	                        this.state.table.standing.map(function (team, key) {
 	                            return _react2.default.createElement(
 	                                'tr',
-	                                { key: league.id },
+	                                { key: team.teamName },
 	                                _react2.default.createElement(
 	                                    'td',
 	                                    null,
-	                                    _react2.default.createElement(_League2.default, { league: league, setTableView: _this2.props.setTableView })
+	                                    team.position
 	                                ),
 	                                _react2.default.createElement(
 	                                    'td',
 	                                    null,
-	                                    league.id
+	                                    team.teamName
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    team.points
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    team.playedGames
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    team.wins
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    team.losses
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    team.draws
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    team.goals
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    team.goalsAgains
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    team.goalDifference
 	                                )
 	                            );
 	                        })
@@ -23759,7 +23861,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            if (this.state.list.length == 0) {
+	            if (this.state.table == null) {
 	                return this.showLoadingScreen();
 	            } else {
 	                return this.showLeaguesScreen();
@@ -23767,10 +23869,10 @@
 	        }
 	    }]);
 	
-	    return Competitions;
+	    return LeagueTable;
 	}(_react2.default.Component);
 	
-	exports.default = Competitions;
+	exports.default = LeagueTable;
 
 /***/ }
 /******/ ]);

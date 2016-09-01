@@ -34,6 +34,7 @@ class Competitions extends React.Component {
         })
         .then(function (response) {
             scope.setList(response.data);
+            console.log(response.data);
         })
         .catch(function (error) {
             console.log("My error: " + error);
