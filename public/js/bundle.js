@@ -23756,7 +23756,7 @@
 	                { className: 'container' },
 	                _react2.default.createElement(
 	                    'button',
-	                    { className: 'btn btn-success stickyBottom', onClick: function onClick() {
+	                    { className: 'btn btn-success goBackButton', onClick: function onClick() {
 	                            return _this2.props.setCompetitionsView();
 	                        } },
 	                    'Go back'

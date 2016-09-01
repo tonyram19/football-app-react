@@ -44,7 +44,7 @@ class LeagueTable extends React.Component {
     showLeaguesScreen() {
         return(
             <div className="container">
-                <button className="btn btn-success stickyBottom" onClick={()=> this.props.setCompetitionsView()}>Go back</button>
+                <button className="btn btn-success goBackButton" onClick={()=> this.props.setCompetitionsView()}>Go back</button>
                 <h1>{this.state.table.leagueCaption}</h1>
                 <table className="table-striped table-condensed">
                     <thead>
