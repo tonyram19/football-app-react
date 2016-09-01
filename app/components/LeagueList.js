@@ -1,6 +1,5 @@
 "use strict";
 import React from 'react';
-import Request from 'react-http-request';
 import axios from 'axios';
 
 import League from './League';
@@ -21,9 +20,9 @@ class LeagueList extends React.Component {
         this.getLeagues();
     }
 
-    setList(league) {
+    setList(leaguesList) {
         this.setState({
-            list: league
+            list: leaguesList
         });
     }
 
@@ -57,16 +56,16 @@ class LeagueList extends React.Component {
                     <thead>
                         <tr>
                             <th>League</th>
-                            <th>Teams</th>
-                            </tr>
+                            <th>ID</th>
+                        </tr>
                     </thead>
                     <tbody>
                     {
                         this.state.list.map((league, key) => {
                             return(
                                 <tr key={league.id}>
-                                    <td><League league={league} /></td>
-                                    <td>{league.numberOfTeams}</td>
+                                    <td><League league={league} setTableView={this.props.setTableView} setCurrentLeague={this.props.setCurrentLeague}/></td>
+                                    <td>{league.id}</td>
                                 </tr>
                             );
                         })

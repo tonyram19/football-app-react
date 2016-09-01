@@ -1,17 +1,11 @@
 "use strict";
 import React from 'react';
-import Request from 'react-http-request';
-
-import Team from './Team';
 
 class LeagueTable extends React.Component {
     constructor(props) {
         super(props);
         this.loadRequest = this.loadRequest.bind(this);
-
     }
-
-
 
     loadRequest(url) {
         let headers = {'X-Auth-Token': '1d8e93dbf9104d589b510b458144851b'};
@@ -65,10 +59,11 @@ class LeagueTable extends React.Component {
         );
     }
 
-
     render() {
         return (
-            this.loadRequest('https://api.football-data.org/v1/competitions/?season=2016')
+            <div>
+                <h1> {this.props.currentLeague}</h1>
+            </div>
         );
     }
 }
