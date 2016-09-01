@@ -42,7 +42,7 @@ class LeagueTable extends React.Component {
     showLoadingScreen() {
         return (
             <div className="container">
-            <h2>Loading...</h2>
+                <h2>Loading...</h2>
             </div>
         );
     }
@@ -68,24 +68,24 @@ class LeagueTable extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                    {
-                        this.state.table.standing.map((team, key) => {
-                            return(
-                                <tr key={team.teamName}>
-                                    <td>{team.position}</td>
-                                    <td>{team.teamName}</td>
-                                    <td>{team.points}</td>
-                                    <td>{team.playedGames}</td>
-                                    <td>{team.wins}</td>
-                                    <td>{team.losses}</td>
-                                    <td>{team.draws}</td>
-                                    <td>{team.goals}</td>
-                                    <td>{team.goalsAgains}</td>
-                                    <td>{team.goalDifference}</td>
-                                </tr>
-                            );
-                        })
-                    }
+                        {
+                            this.state.table.standing.map((team, key) => {
+                                return(
+                                    <tr key={team.teamName}>
+                                        <td>{team.position}</td>
+                                        <td>{team.teamName}</td>
+                                        <td>{team.points}</td>
+                                        <td>{team.playedGames}</td>
+                                        <td>{team.wins}</td>
+                                        <td>{team.losses}</td>
+                                        <td>{team.draws}</td>
+                                        <td>{team.goals}</td>
+                                        <td>{team.goalsAgains}</td>
+                                        <td>{team.goalDifference}</td>
+                                    </tr>
+                                );
+                            })
+                        }
                     </tbody>
                 </table>
             </div>

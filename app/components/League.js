@@ -2,6 +2,7 @@
 import React from 'react';
 
 class League extends React.Component {
+
     constructor(props) {
         super(props);
     }

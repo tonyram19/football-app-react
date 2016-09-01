@@ -5,6 +5,7 @@ import axios from 'axios';
 import League from './League';
 
 class Competitions extends React.Component {
+
     constructor(props) {
         super(props);
 
