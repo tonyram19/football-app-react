@@ -3,6 +3,7 @@ import React from 'react';
 import axios from 'axios';
 
 import League from './League';
+import Loading from './Loading';
 
 class Competitions extends React.Component {
 
@@ -11,7 +12,6 @@ class Competitions extends React.Component {
 
         this.getLeagues = this.getLeagues.bind(this);
         this.setList = this.setList.bind(this);
-        this.showLoadingScreen = this.showLoadingScreen.bind(this);
         this.showLeaguesScreen = this.showLeaguesScreen.bind(this);
 
         this.state = {
@@ -42,14 +42,6 @@ class Competitions extends React.Component {
         });
     }
 
-    showLoadingScreen() {
-        return (
-            <div className="container">
-            <h2>Loading...</h2>
-            </div>
-        );
-    }
-
     showLeaguesScreen() {
         return(
             <div className="container">
@@ -58,29 +50,29 @@ class Competitions extends React.Component {
                     <thead>
                         <tr>
                             <th>League</th>
-                            <th>ID</th>
                         </tr>
                     </thead>
                     <tbody>
                     {
-                        this.state.list.map((league, key) => {
+                        this.state.list.sort((a, b) => {
+                            return (b.caption - a.caption);
+                        }).map((league, key) => {
                             return(
                                 <tr key={league.id}>
                                     <td><League league={league} setTableView={this.props.setTableView}/></td>
-                                    <td>{league.id}</td>
                                 </tr>
                             );
                         })
                     }
-                    </tbody>
-                </table>
-            </div>
-        );
+                </tbody>
+            </table>
+        </div>
+    );
     }
 
     render() {
         if (this.state.list.length == 0) {
-            return this.showLoadingScreen();
+            return <Loading />;
         } else {
             return this.showLeaguesScreen();
         }

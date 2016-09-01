@@ -2,13 +2,15 @@
 import React from 'react';
 import axios from 'axios';
 
+import Loading from './Loading';
+
 class LeagueTable extends React.Component {
+
     constructor(props) {
         super(props);
 
         this.getTable = this.getTable.bind(this);
         this.setTable = this.setTable.bind(this);
-        this.showLoadingScreen = this.showLoadingScreen.bind(this);
         this.showLeaguesScreen = this.showLeaguesScreen.bind(this);
 
         this.state = {
@@ -37,14 +39,6 @@ class LeagueTable extends React.Component {
         this.setState({
             table: table
         });
-    }
-
-    showLoadingScreen() {
-        return (
-            <div className="container">
-                <h2>Loading...</h2>
-            </div>
-        );
     }
 
     showLeaguesScreen() {
@@ -96,7 +90,7 @@ class LeagueTable extends React.Component {
 
     render() {
         if (this.state.table == null) {
-            return this.showLoadingScreen();
+            return <Loading />;
         } else {
             return this.showLeaguesScreen();
         }

@@ -22022,6 +22022,10 @@
 	
 	var _League2 = _interopRequireDefault(_League);
 	
+	var _Loading = __webpack_require__(/*! ./Loading */ 197);
+	
+	var _Loading2 = _interopRequireDefault(_Loading);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22040,7 +22044,6 @@
 	
 	        _this.getLeagues = _this.getLeagues.bind(_this);
 	        _this.setList = _this.setList.bind(_this);
-	        _this.showLoadingScreen = _this.showLoadingScreen.bind(_this);
 	        _this.showLeaguesScreen = _this.showLeaguesScreen.bind(_this);
 	
 	        _this.state = {
@@ -22073,19 +22076,6 @@
 	            });
 	        }
 	    }, {
-	        key: 'showLoadingScreen',
-	        value: function showLoadingScreen() {
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'container' },
-	                _react2.default.createElement(
-	                    'h2',
-	                    null,
-	                    'Loading...'
-	                )
-	            );
-	        }
-	    }, {
 	        key: 'showLeaguesScreen',
 	        value: function showLeaguesScreen() {
 	            var _this2 = this;
@@ -22111,18 +22101,15 @@
 	                                'th',
 	                                null,
 	                                'League'
-	                            ),
-	                            _react2.default.createElement(
-	                                'th',
-	                                null,
-	                                'ID'
 	                            )
 	                        )
 	                    ),
 	                    _react2.default.createElement(
 	                        'tbody',
 	                        null,
-	                        this.state.list.map(function (league, key) {
+	                        this.state.list.sort(function (a, b) {
+	                            return b.caption - a.caption;
+	                        }).map(function (league, key) {
 	                            return _react2.default.createElement(
 	                                'tr',
 	                                { key: league.id },
@@ -22130,11 +22117,6 @@
 	                                    'td',
 	                                    null,
 	                                    _react2.default.createElement(_League2.default, { league: league, setTableView: _this2.props.setTableView })
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    league.id
 	                                )
 	                            );
 	                        })
@@ -22146,7 +22128,7 @@
 	        key: 'render',
 	        value: function render() {
 	            if (this.state.list.length == 0) {
-	                return this.showLoadingScreen();
+	                return _react2.default.createElement(_Loading2.default, null);
 	            } else {
 	                return this.showLeaguesScreen();
 	            }
@@ -23651,6 +23633,10 @@
 	
 	var _axios2 = _interopRequireDefault(_axios);
 	
+	var _Loading = __webpack_require__(/*! ./Loading */ 197);
+	
+	var _Loading2 = _interopRequireDefault(_Loading);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -23669,7 +23655,6 @@
 	
 	        _this.getTable = _this.getTable.bind(_this);
 	        _this.setTable = _this.setTable.bind(_this);
-	        _this.showLoadingScreen = _this.showLoadingScreen.bind(_this);
 	        _this.showLeaguesScreen = _this.showLeaguesScreen.bind(_this);
 	
 	        _this.state = {
@@ -23700,19 +23685,6 @@
 	            this.setState({
 	                table: table
 	            });
-	        }
-	    }, {
-	        key: 'showLoadingScreen',
-	        value: function showLoadingScreen() {
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'container' },
-	                _react2.default.createElement(
-	                    'h2',
-	                    null,
-	                    'Loading...'
-	                )
-	            );
 	        }
 	    }, {
 	        key: 'showLeaguesScreen',
@@ -23864,7 +23836,7 @@
 	        key: 'render',
 	        value: function render() {
 	            if (this.state.table == null) {
-	                return this.showLoadingScreen();
+	                return _react2.default.createElement(_Loading2.default, null);
 	            } else {
 	                return this.showLeaguesScreen();
 	            }
@@ -23875,6 +23847,70 @@
 	}(_react2.default.Component);
 	
 	exports.default = LeagueTable;
+
+/***/ },
+/* 197 */
+/*!***********************************!*\
+  !*** ./app/components/Loading.js ***!
+  \***********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Loading = function (_React$Component) {
+	    _inherits(Loading, _React$Component);
+	
+	    function Loading(props) {
+	        _classCallCheck(this, Loading);
+	
+	        var _this = _possibleConstructorReturn(this, (Loading.__proto__ || Object.getPrototypeOf(Loading)).call(this, props));
+	
+	        _this.showLoadingScreen = _this.showLoadingScreen.bind(_this);
+	        return _this;
+	    }
+	
+	    _createClass(Loading, [{
+	        key: "showLoadingScreen",
+	        value: function showLoadingScreen() {
+	            return _react2.default.createElement(
+	                "div",
+	                { className: "container" },
+	                _react2.default.createElement(
+	                    "h2",
+	                    null,
+	                    "Loading..."
+	                )
+	            );
+	        }
+	    }, {
+	        key: "render",
+	        value: function render() {
+	            return this.showLoadingScreen();
+	        }
+	    }]);
+	
+	    return Loading;
+	}(_react2.default.Component);
+	
+	exports.default = Loading;
 
 /***/ }
 /******/ ]);
