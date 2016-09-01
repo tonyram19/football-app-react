@@ -55,9 +55,10 @@ class LeagueTable extends React.Component {
                 <table className="table-striped table-condensed">
                     <thead>
                         <tr>
-                            <th>Pos.</th>
+                            <th></th>
+                            <th></th>
                             <th>Team</th>
-                            <th>Pts.</th>
+                            <th>Pts</th>
                             <th>P</th>
                             <th>W</th>
                             <th>L</th>
@@ -73,6 +74,7 @@ class LeagueTable extends React.Component {
                                 return(
                                     <tr key={team.teamName}>
                                         <td>{team.position}</td>
+                                        <td><img src={team.crestURI} style={{width: '20px'}}/></td>
                                         <td>{team.teamName}</td>
                                         <td>{team.points}</td>
                                         <td>{team.playedGames}</td>

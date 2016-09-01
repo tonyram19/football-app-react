@@ -23743,11 +23743,8 @@
 	                        _react2.default.createElement(
 	                            'tr',
 	                            null,
-	                            _react2.default.createElement(
-	                                'th',
-	                                null,
-	                                'Pos.'
-	                            ),
+	                            _react2.default.createElement('th', null),
+	                            _react2.default.createElement('th', null),
 	                            _react2.default.createElement(
 	                                'th',
 	                                null,
@@ -23756,7 +23753,7 @@
 	                            _react2.default.createElement(
 	                                'th',
 	                                null,
-	                                'Pts.'
+	                                'Pts'
 	                            ),
 	                            _react2.default.createElement(
 	                                'th',
@@ -23806,6 +23803,11 @@
 	                                    'td',
 	                                    null,
 	                                    team.position
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement('img', { src: team.crestURI, style: { width: '20px' } })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'td',
