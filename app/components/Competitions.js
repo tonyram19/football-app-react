@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import League from './League';
 
-class LeagueList extends React.Component {
+class Competitions extends React.Component {
     constructor(props) {
         super(props);
 
@@ -64,13 +64,12 @@ class LeagueList extends React.Component {
                         this.state.list.map((league, key) => {
                             return(
                                 <tr key={league.id}>
-                                    <td><League league={league} setTableView={this.props.setTableView} setCurrentLeague={this.props.setCurrentLeague}/></td>
+                                    <td><League league={league} setTableView={this.props.setTableView}/></td>
                                     <td>{league.id}</td>
                                 </tr>
                             );
                         })
                     }
-
                     </tbody>
                 </table>
             </div>
@@ -86,4 +85,4 @@ class LeagueList extends React.Component {
     }
 }
 
-export default LeagueList;
+export default Competitions;

@@ -57,11 +57,11 @@
 	
 	var _reactDom = __webpack_require__(/*! react-dom */ 34);
 	
-	var _LeagueList = __webpack_require__(/*! ./components/LeagueList */ 235);
+	var _Competitions = __webpack_require__(/*! ./components/Competitions */ 197);
 	
-	var _LeagueList2 = _interopRequireDefault(_LeagueList);
+	var _Competitions2 = _interopRequireDefault(_Competitions);
 	
-	var _LeagueTable = __webpack_require__(/*! ./components/LeagueTable */ 259);
+	var _LeagueTable = __webpack_require__(/*! ./components/LeagueTable */ 196);
 	
 	var _LeagueTable2 = _interopRequireDefault(_LeagueTable);
 	
@@ -87,7 +87,7 @@
 	
 	        _this.state = {
 	            currentLeague: 0,
-	            currentView: 'leagues'
+	            currentView: 'competitions'
 	        };
 	
 	        return _this;
@@ -102,23 +102,24 @@
 	        }
 	    }, {
 	        key: 'setTableView',
-	        value: function setTableView() {
+	        value: function setTableView(leagueID) {
 	            this.setState({
 	                currentView: 'leagueTable'
 	            });
+	            this.setCurrentLeague(leagueID);
 	        }
 	    }, {
 	        key: 'setLeaguesView',
 	        value: function setLeaguesView() {
 	            this.setState({
-	                currentView: 'leagues'
+	                currentView: 'competitions'
 	            });
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            if (this.state.currentView == 'leagues') {
-	                return _react2.default.createElement(_LeagueList2.default, { setTableView: this.setTableView, setCurrentLeague: this.setCurrentLeague });
+	            if (this.state.currentView == 'competitions') {
+	                return _react2.default.createElement(_Competitions2.default, { setTableView: this.setTableView });
 	            } else if (this.state.currentView == 'leagueTable') {
 	                return _react2.default.createElement(_LeagueTable2.default, { currentLeague: this.state.currentLeague });
 	            }
@@ -21996,240 +21997,16 @@
 
 /***/ },
 /* 172 */,
-/* 173 */,
-/* 174 */,
-/* 175 */,
-/* 176 */,
-/* 177 */,
-/* 178 */,
-/* 179 */,
-/* 180 */,
-/* 181 */,
-/* 182 */,
-/* 183 */,
-/* 184 */,
-/* 185 */,
-/* 186 */,
-/* 187 */,
-/* 188 */,
-/* 189 */,
-/* 190 */,
-/* 191 */,
-/* 192 */,
-/* 193 */,
-/* 194 */,
-/* 195 */,
-/* 196 */,
-/* 197 */,
-/* 198 */,
-/* 199 */,
-/* 200 */,
-/* 201 */,
-/* 202 */,
-/* 203 */,
-/* 204 */,
-/* 205 */,
-/* 206 */,
-/* 207 */,
-/* 208 */,
-/* 209 */,
-/* 210 */,
-/* 211 */,
-/* 212 */,
-/* 213 */,
-/* 214 */,
-/* 215 */,
-/* 216 */,
-/* 217 */,
-/* 218 */,
-/* 219 */,
-/* 220 */,
-/* 221 */,
-/* 222 */,
-/* 223 */,
-/* 224 */,
-/* 225 */,
-/* 226 */,
-/* 227 */,
-/* 228 */,
-/* 229 */,
-/* 230 */,
-/* 231 */,
-/* 232 */,
-/* 233 */,
-/* 234 */,
-/* 235 */
-/*!**************************************!*\
-  !*** ./app/components/LeagueList.js ***!
-  \**************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _axios = __webpack_require__(/*! axios */ 236);
-	
-	var _axios2 = _interopRequireDefault(_axios);
-	
-	var _League = __webpack_require__(/*! ./League */ 258);
-	
-	var _League2 = _interopRequireDefault(_League);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var LeagueList = function (_React$Component) {
-	    _inherits(LeagueList, _React$Component);
-	
-	    function LeagueList(props) {
-	        _classCallCheck(this, LeagueList);
-	
-	        var _this = _possibleConstructorReturn(this, (LeagueList.__proto__ || Object.getPrototypeOf(LeagueList)).call(this, props));
-	
-	        _this.getLeagues = _this.getLeagues.bind(_this);
-	        _this.setList = _this.setList.bind(_this);
-	        _this.showLoadingScreen = _this.showLoadingScreen.bind(_this);
-	        _this.showLeaguesScreen = _this.showLeaguesScreen.bind(_this);
-	
-	        _this.state = {
-	            list: []
-	        };
-	
-	        _this.getLeagues();
-	        return _this;
-	    }
-	
-	    _createClass(LeagueList, [{
-	        key: 'setList',
-	        value: function setList(leaguesList) {
-	            this.setState({
-	                list: leaguesList
-	            });
-	        }
-	    }, {
-	        key: 'getLeagues',
-	        value: function getLeagues() {
-	            var scope = this;
-	
-	            _axios2.default.get('https://api.football-data.org/v1/competitions/?season=2016', {
-	                headers: { 'X-Auth-Token': '1d8e93dbf9104d589b510b458144851b' }
-	            }).then(function (response) {
-	                scope.setList(response.data);
-	            }).catch(function (error) {
-	                console.log("My error: " + error);
-	            });
-	        }
-	    }, {
-	        key: 'showLoadingScreen',
-	        value: function showLoadingScreen() {
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'container' },
-	                _react2.default.createElement(
-	                    'h2',
-	                    null,
-	                    'Loading...'
-	                )
-	            );
-	        }
-	    }, {
-	        key: 'showLeaguesScreen',
-	        value: function showLeaguesScreen() {
-	            var _this2 = this;
-	
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'container' },
-	                _react2.default.createElement(
-	                    'h1',
-	                    null,
-	                    'Competitions'
-	                ),
-	                _react2.default.createElement(
-	                    'table',
-	                    { className: 'table-striped table-condensed' },
-	                    _react2.default.createElement(
-	                        'thead',
-	                        null,
-	                        _react2.default.createElement(
-	                            'tr',
-	                            null,
-	                            _react2.default.createElement(
-	                                'th',
-	                                null,
-	                                'League'
-	                            ),
-	                            _react2.default.createElement(
-	                                'th',
-	                                null,
-	                                'ID'
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'tbody',
-	                        null,
-	                        this.state.list.map(function (league, key) {
-	                            return _react2.default.createElement(
-	                                'tr',
-	                                { key: league.id },
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    _react2.default.createElement(_League2.default, { league: league, setTableView: _this2.props.setTableView, setCurrentLeague: _this2.props.setCurrentLeague })
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    league.id
-	                                )
-	                            );
-	                        })
-	                    )
-	                )
-	            );
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            if (this.state.list.length == 0) {
-	                return this.showLoadingScreen();
-	            } else {
-	                return this.showLeaguesScreen();
-	            }
-	        }
-	    }]);
-	
-	    return LeagueList;
-	}(_react2.default.Component);
-	
-	exports.default = LeagueList;
-
-/***/ },
-/* 236 */
+/* 173 */
 /*!**************************!*\
   !*** ./~/axios/index.js ***!
   \**************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(/*! ./lib/axios */ 237);
+	module.exports = __webpack_require__(/*! ./lib/axios */ 174);
 
 /***/ },
-/* 237 */
+/* 174 */
 /*!******************************!*\
   !*** ./~/axios/lib/axios.js ***!
   \******************************/
@@ -22237,9 +22014,9 @@
 
 	'use strict';
 	
-	var utils = __webpack_require__(/*! ./utils */ 238);
-	var bind = __webpack_require__(/*! ./helpers/bind */ 239);
-	var Axios = __webpack_require__(/*! ./core/Axios */ 240);
+	var utils = __webpack_require__(/*! ./utils */ 175);
+	var bind = __webpack_require__(/*! ./helpers/bind */ 176);
+	var Axios = __webpack_require__(/*! ./core/Axios */ 177);
 	
 	/**
 	 * Create an instance of Axios
@@ -22275,7 +22052,7 @@
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(/*! ./helpers/spread */ 257);
+	axios.spread = __webpack_require__(/*! ./helpers/spread */ 194);
 	
 	module.exports = axios;
 	
@@ -22284,7 +22061,7 @@
 
 
 /***/ },
-/* 238 */
+/* 175 */
 /*!******************************!*\
   !*** ./~/axios/lib/utils.js ***!
   \******************************/
@@ -22292,7 +22069,7 @@
 
 	'use strict';
 	
-	var bind = __webpack_require__(/*! ./helpers/bind */ 239);
+	var bind = __webpack_require__(/*! ./helpers/bind */ 176);
 	
 	/*global toString:true*/
 	
@@ -22592,7 +22369,7 @@
 
 
 /***/ },
-/* 239 */
+/* 176 */
 /*!*************************************!*\
   !*** ./~/axios/lib/helpers/bind.js ***!
   \*************************************/
@@ -22612,7 +22389,7 @@
 
 
 /***/ },
-/* 240 */
+/* 177 */
 /*!***********************************!*\
   !*** ./~/axios/lib/core/Axios.js ***!
   \***********************************/
@@ -22620,12 +22397,12 @@
 
 	'use strict';
 	
-	var defaults = __webpack_require__(/*! ./../defaults */ 241);
-	var utils = __webpack_require__(/*! ./../utils */ 238);
-	var InterceptorManager = __webpack_require__(/*! ./InterceptorManager */ 243);
-	var dispatchRequest = __webpack_require__(/*! ./dispatchRequest */ 244);
-	var isAbsoluteURL = __webpack_require__(/*! ./../helpers/isAbsoluteURL */ 255);
-	var combineURLs = __webpack_require__(/*! ./../helpers/combineURLs */ 256);
+	var defaults = __webpack_require__(/*! ./../defaults */ 178);
+	var utils = __webpack_require__(/*! ./../utils */ 175);
+	var InterceptorManager = __webpack_require__(/*! ./InterceptorManager */ 180);
+	var dispatchRequest = __webpack_require__(/*! ./dispatchRequest */ 181);
+	var isAbsoluteURL = __webpack_require__(/*! ./../helpers/isAbsoluteURL */ 192);
+	var combineURLs = __webpack_require__(/*! ./../helpers/combineURLs */ 193);
 	
 	/**
 	 * Create a new instance of Axios
@@ -22706,7 +22483,7 @@
 
 
 /***/ },
-/* 241 */
+/* 178 */
 /*!*********************************!*\
   !*** ./~/axios/lib/defaults.js ***!
   \*********************************/
@@ -22714,8 +22491,8 @@
 
 	'use strict';
 	
-	var utils = __webpack_require__(/*! ./utils */ 238);
-	var normalizeHeaderName = __webpack_require__(/*! ./helpers/normalizeHeaderName */ 242);
+	var utils = __webpack_require__(/*! ./utils */ 175);
+	var normalizeHeaderName = __webpack_require__(/*! ./helpers/normalizeHeaderName */ 179);
 	
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
@@ -22787,7 +22564,7 @@
 
 
 /***/ },
-/* 242 */
+/* 179 */
 /*!****************************************************!*\
   !*** ./~/axios/lib/helpers/normalizeHeaderName.js ***!
   \****************************************************/
@@ -22795,7 +22572,7 @@
 
 	'use strict';
 	
-	var utils = __webpack_require__(/*! ../utils */ 238);
+	var utils = __webpack_require__(/*! ../utils */ 175);
 	
 	module.exports = function normalizeHeaderName(headers, normalizedName) {
 	  utils.forEach(headers, function processHeader(value, name) {
@@ -22808,7 +22585,7 @@
 
 
 /***/ },
-/* 243 */
+/* 180 */
 /*!************************************************!*\
   !*** ./~/axios/lib/core/InterceptorManager.js ***!
   \************************************************/
@@ -22816,7 +22593,7 @@
 
 	'use strict';
 	
-	var utils = __webpack_require__(/*! ./../utils */ 238);
+	var utils = __webpack_require__(/*! ./../utils */ 175);
 	
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -22869,7 +22646,7 @@
 
 
 /***/ },
-/* 244 */
+/* 181 */
 /*!*********************************************!*\
   !*** ./~/axios/lib/core/dispatchRequest.js ***!
   \*********************************************/
@@ -22877,8 +22654,8 @@
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
-	var utils = __webpack_require__(/*! ./../utils */ 238);
-	var transformData = __webpack_require__(/*! ./transformData */ 245);
+	var utils = __webpack_require__(/*! ./../utils */ 175);
+	var transformData = __webpack_require__(/*! ./transformData */ 182);
 	
 	/**
 	 * Dispatch a request to the server using whichever adapter
@@ -22919,10 +22696,10 @@
 	    adapter = config.adapter;
 	  } else if (typeof XMLHttpRequest !== 'undefined') {
 	    // For browsers use XHR adapter
-	    adapter = __webpack_require__(/*! ../adapters/xhr */ 246);
+	    adapter = __webpack_require__(/*! ../adapters/xhr */ 183);
 	  } else if (typeof process !== 'undefined') {
 	    // For node use HTTP adapter
-	    adapter = __webpack_require__(/*! ../adapters/http */ 246);
+	    adapter = __webpack_require__(/*! ../adapters/http */ 183);
 	  }
 	
 	  return Promise.resolve(config)
@@ -22954,7 +22731,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! (webpack)/~/node-libs-browser/~/process/browser.js */ 3)))
 
 /***/ },
-/* 245 */
+/* 182 */
 /*!*******************************************!*\
   !*** ./~/axios/lib/core/transformData.js ***!
   \*******************************************/
@@ -22962,7 +22739,7 @@
 
 	'use strict';
 	
-	var utils = __webpack_require__(/*! ./../utils */ 238);
+	var utils = __webpack_require__(/*! ./../utils */ 175);
 	
 	/**
 	 * Transform the data for a request or a response
@@ -22983,7 +22760,7 @@
 
 
 /***/ },
-/* 246 */
+/* 183 */
 /*!*************************************!*\
   !*** ./~/axios/lib/adapters/xhr.js ***!
   \*************************************/
@@ -22991,13 +22768,13 @@
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
-	var utils = __webpack_require__(/*! ./../utils */ 238);
-	var settle = __webpack_require__(/*! ./../core/settle */ 247);
-	var buildURL = __webpack_require__(/*! ./../helpers/buildURL */ 250);
-	var parseHeaders = __webpack_require__(/*! ./../helpers/parseHeaders */ 251);
-	var isURLSameOrigin = __webpack_require__(/*! ./../helpers/isURLSameOrigin */ 252);
-	var createError = __webpack_require__(/*! ../core/createError */ 248);
-	var btoa = (typeof window !== 'undefined' && window.btoa) || __webpack_require__(/*! ./../helpers/btoa */ 253);
+	var utils = __webpack_require__(/*! ./../utils */ 175);
+	var settle = __webpack_require__(/*! ./../core/settle */ 184);
+	var buildURL = __webpack_require__(/*! ./../helpers/buildURL */ 187);
+	var parseHeaders = __webpack_require__(/*! ./../helpers/parseHeaders */ 188);
+	var isURLSameOrigin = __webpack_require__(/*! ./../helpers/isURLSameOrigin */ 189);
+	var createError = __webpack_require__(/*! ../core/createError */ 185);
+	var btoa = (typeof window !== 'undefined' && window.btoa) || __webpack_require__(/*! ./../helpers/btoa */ 190);
 	
 	module.exports = function xhrAdapter(config) {
 	  return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -23091,7 +22868,7 @@
 	    // This is only done if running in a standard browser environment.
 	    // Specifically not if we're in a web worker, or react-native.
 	    if (utils.isStandardBrowserEnv()) {
-	      var cookies = __webpack_require__(/*! ./../helpers/cookies */ 254);
+	      var cookies = __webpack_require__(/*! ./../helpers/cookies */ 191);
 	
 	      // Add xsrf header
 	      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -23155,7 +22932,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! (webpack)/~/node-libs-browser/~/process/browser.js */ 3)))
 
 /***/ },
-/* 247 */
+/* 184 */
 /*!************************************!*\
   !*** ./~/axios/lib/core/settle.js ***!
   \************************************/
@@ -23163,7 +22940,7 @@
 
 	'use strict';
 	
-	var createError = __webpack_require__(/*! ./createError */ 248);
+	var createError = __webpack_require__(/*! ./createError */ 185);
 	
 	/**
 	 * Resolve or reject a Promise based on response status.
@@ -23189,7 +22966,7 @@
 
 
 /***/ },
-/* 248 */
+/* 185 */
 /*!*****************************************!*\
   !*** ./~/axios/lib/core/createError.js ***!
   \*****************************************/
@@ -23197,7 +22974,7 @@
 
 	'use strict';
 	
-	var enhanceError = __webpack_require__(/*! ./enhanceError */ 249);
+	var enhanceError = __webpack_require__(/*! ./enhanceError */ 186);
 	
 	/**
 	 * Create an Error with the specified message, config, error code, and response.
@@ -23215,7 +22992,7 @@
 
 
 /***/ },
-/* 249 */
+/* 186 */
 /*!******************************************!*\
   !*** ./~/axios/lib/core/enhanceError.js ***!
   \******************************************/
@@ -23243,7 +23020,7 @@
 
 
 /***/ },
-/* 250 */
+/* 187 */
 /*!*****************************************!*\
   !*** ./~/axios/lib/helpers/buildURL.js ***!
   \*****************************************/
@@ -23251,7 +23028,7 @@
 
 	'use strict';
 	
-	var utils = __webpack_require__(/*! ./../utils */ 238);
+	var utils = __webpack_require__(/*! ./../utils */ 175);
 	
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -23320,7 +23097,7 @@
 
 
 /***/ },
-/* 251 */
+/* 188 */
 /*!*********************************************!*\
   !*** ./~/axios/lib/helpers/parseHeaders.js ***!
   \*********************************************/
@@ -23328,7 +23105,7 @@
 
 	'use strict';
 	
-	var utils = __webpack_require__(/*! ./../utils */ 238);
+	var utils = __webpack_require__(/*! ./../utils */ 175);
 	
 	/**
 	 * Parse headers into an object
@@ -23366,7 +23143,7 @@
 
 
 /***/ },
-/* 252 */
+/* 189 */
 /*!************************************************!*\
   !*** ./~/axios/lib/helpers/isURLSameOrigin.js ***!
   \************************************************/
@@ -23374,7 +23151,7 @@
 
 	'use strict';
 	
-	var utils = __webpack_require__(/*! ./../utils */ 238);
+	var utils = __webpack_require__(/*! ./../utils */ 175);
 	
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -23443,7 +23220,7 @@
 
 
 /***/ },
-/* 253 */
+/* 190 */
 /*!*************************************!*\
   !*** ./~/axios/lib/helpers/btoa.js ***!
   \*************************************/
@@ -23488,7 +23265,7 @@
 
 
 /***/ },
-/* 254 */
+/* 191 */
 /*!****************************************!*\
   !*** ./~/axios/lib/helpers/cookies.js ***!
   \****************************************/
@@ -23496,7 +23273,7 @@
 
 	'use strict';
 	
-	var utils = __webpack_require__(/*! ./../utils */ 238);
+	var utils = __webpack_require__(/*! ./../utils */ 175);
 	
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -23550,7 +23327,7 @@
 
 
 /***/ },
-/* 255 */
+/* 192 */
 /*!**********************************************!*\
   !*** ./~/axios/lib/helpers/isAbsoluteURL.js ***!
   \**********************************************/
@@ -23573,7 +23350,7 @@
 
 
 /***/ },
-/* 256 */
+/* 193 */
 /*!********************************************!*\
   !*** ./~/axios/lib/helpers/combineURLs.js ***!
   \********************************************/
@@ -23594,7 +23371,7 @@
 
 
 /***/ },
-/* 257 */
+/* 194 */
 /*!***************************************!*\
   !*** ./~/axios/lib/helpers/spread.js ***!
   \***************************************/
@@ -23630,7 +23407,7 @@
 
 
 /***/ },
-/* 258 */
+/* 195 */
 /*!**********************************!*\
   !*** ./app/components/League.js ***!
   \**********************************/
@@ -23662,19 +23439,10 @@
 	    function League(props) {
 	        _classCallCheck(this, League);
 	
-	        var _this = _possibleConstructorReturn(this, (League.__proto__ || Object.getPrototypeOf(League)).call(this, props));
-	
-	        _this.switchView = _this.switchView.bind(_this);
-	        return _this;
+	        return _possibleConstructorReturn(this, (League.__proto__ || Object.getPrototypeOf(League)).call(this, props));
 	    }
 	
 	    _createClass(League, [{
-	        key: "switchView",
-	        value: function switchView() {
-	            this.props.setCurrentLeague(this.props.league.id);
-	            this.props.setTableView();
-	        }
-	    }, {
 	        key: "render",
 	        value: function render() {
 	            var _this2 = this;
@@ -23685,7 +23453,7 @@
 	                _react2.default.createElement(
 	                    "a",
 	                    { href: "#", onClick: function onClick() {
-	                            return _this2.switchView();
+	                            return _this2.props.setTableView(_this2.props.league.id);
 	                        } },
 	                    this.props.league.caption
 	                )
@@ -23699,7 +23467,7 @@
 	exports.default = League;
 
 /***/ },
-/* 259 */
+/* 196 */
 /*!***************************************!*\
   !*** ./app/components/LeagueTable.js ***!
   \***************************************/
@@ -23841,6 +23609,168 @@
 	}(_react2.default.Component);
 	
 	exports.default = LeagueTable;
+
+/***/ },
+/* 197 */
+/*!****************************************!*\
+  !*** ./app/components/Competitions.js ***!
+  \****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _axios = __webpack_require__(/*! axios */ 173);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	var _League = __webpack_require__(/*! ./League */ 195);
+	
+	var _League2 = _interopRequireDefault(_League);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Competitions = function (_React$Component) {
+	    _inherits(Competitions, _React$Component);
+	
+	    function Competitions(props) {
+	        _classCallCheck(this, Competitions);
+	
+	        var _this = _possibleConstructorReturn(this, (Competitions.__proto__ || Object.getPrototypeOf(Competitions)).call(this, props));
+	
+	        _this.getLeagues = _this.getLeagues.bind(_this);
+	        _this.setList = _this.setList.bind(_this);
+	        _this.showLoadingScreen = _this.showLoadingScreen.bind(_this);
+	        _this.showLeaguesScreen = _this.showLeaguesScreen.bind(_this);
+	
+	        _this.state = {
+	            list: []
+	        };
+	
+	        _this.getLeagues();
+	        return _this;
+	    }
+	
+	    _createClass(Competitions, [{
+	        key: 'setList',
+	        value: function setList(leaguesList) {
+	            this.setState({
+	                list: leaguesList
+	            });
+	        }
+	    }, {
+	        key: 'getLeagues',
+	        value: function getLeagues() {
+	            var scope = this;
+	
+	            _axios2.default.get('https://api.football-data.org/v1/competitions/?season=2016', {
+	                headers: { 'X-Auth-Token': '1d8e93dbf9104d589b510b458144851b' }
+	            }).then(function (response) {
+	                scope.setList(response.data);
+	            }).catch(function (error) {
+	                console.log("My error: " + error);
+	            });
+	        }
+	    }, {
+	        key: 'showLoadingScreen',
+	        value: function showLoadingScreen() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'container' },
+	                _react2.default.createElement(
+	                    'h2',
+	                    null,
+	                    'Loading...'
+	                )
+	            );
+	        }
+	    }, {
+	        key: 'showLeaguesScreen',
+	        value: function showLeaguesScreen() {
+	            var _this2 = this;
+	
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'container' },
+	                _react2.default.createElement(
+	                    'h1',
+	                    null,
+	                    'Competitions'
+	                ),
+	                _react2.default.createElement(
+	                    'table',
+	                    { className: 'table-striped table-condensed' },
+	                    _react2.default.createElement(
+	                        'thead',
+	                        null,
+	                        _react2.default.createElement(
+	                            'tr',
+	                            null,
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'League'
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'ID'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'tbody',
+	                        null,
+	                        this.state.list.map(function (league, key) {
+	                            return _react2.default.createElement(
+	                                'tr',
+	                                { key: league.id },
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement(_League2.default, { league: league, setTableView: _this2.props.setTableView })
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    league.id
+	                                )
+	                            );
+	                        })
+	                    )
+	                )
+	            );
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            if (this.state.list.length == 0) {
+	                return this.showLoadingScreen();
+	            } else {
+	                return this.showLeaguesScreen();
+	            }
+	        }
+	    }]);
+	
+	    return Competitions;
+	}(_react2.default.Component);
+	
+	exports.default = Competitions;
 
 /***/ }
 /******/ ]);

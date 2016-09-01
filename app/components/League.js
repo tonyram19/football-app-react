@@ -4,19 +4,12 @@ import React from 'react';
 class League extends React.Component {
     constructor(props) {
         super(props);
-
-        this.switchView = this.switchView.bind(this);
-    }
-
-    switchView() {
-        this.props.setCurrentLeague(this.props.league.id);
-        this.props.setTableView();
     }
 
     render() {
         return (
             <div>
-                <a href="#" onClick={() => this.switchView()}>
+                <a href="#" onClick={() => this.props.setTableView(this.props.league.id)}>
                     {this.props.league.caption}
                 </a>
             </div>
