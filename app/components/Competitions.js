@@ -49,7 +49,7 @@ class Competitions extends React.Component {
                 <table className="table-striped table-condensed">
                     <thead>
                         <tr>
-                            <th>League</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>

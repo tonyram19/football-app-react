@@ -10,9 +10,9 @@ class League extends React.Component {
     render() {
         return (
             <div>
-                <a href="#" onClick={() => this.props.setTableView(this.props.league.id)}>
+                <div className="text-success" onClick={() => this.props.setTableView(this.props.league.id)}>
                     {this.props.league.caption}
-                </a>
+                </div>
             </div>
         );
     }

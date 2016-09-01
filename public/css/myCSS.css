@@ -1,0 +1,12 @@
+.text-success:hover {
+    cursor: pointer;
+}
+
+.stickyBottom {
+    position: fixed;
+    bottom: 0px;
+}
+
+table {
+    margin-bottom: 50px;
+}

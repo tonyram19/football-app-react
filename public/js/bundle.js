@@ -22097,11 +22097,7 @@
 	                        _react2.default.createElement(
 	                            'tr',
 	                            null,
-	                            _react2.default.createElement(
-	                                'th',
-	                                null,
-	                                'League'
-	                            )
+	                            _react2.default.createElement('th', null)
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -23595,8 +23591,8 @@
 	                "div",
 	                null,
 	                _react2.default.createElement(
-	                    "a",
-	                    { href: "#", onClick: function onClick() {
+	                    "div",
+	                    { className: "text-success", onClick: function onClick() {
 	                            return _this2.props.setTableView(_this2.props.league.id);
 	                        } },
 	                    this.props.league.caption
@@ -23759,16 +23755,16 @@
 	                'div',
 	                { className: 'container' },
 	                _react2.default.createElement(
-	                    'h1',
-	                    null,
-	                    this.state.table.leagueCaption
-	                ),
-	                _react2.default.createElement(
-	                    'a',
-	                    { href: '#', onClick: function onClick() {
+	                    'button',
+	                    { className: 'btn btn-success stickyBottom', onClick: function onClick() {
 	                            return _this2.props.setCompetitionsView();
 	                        } },
 	                    'Go back'
+	                ),
+	                _react2.default.createElement(
+	                    'h1',
+	                    null,
+	                    this.state.table.leagueCaption
 	                ),
 	                _react2.default.createElement(
 	                    'table',
@@ -23883,7 +23879,7 @@
 	                                _react2.default.createElement(
 	                                    'td',
 	                                    null,
-	                                    team.goalsAgains
+	                                    team.goalsAgainst
 	                                ),
 	                                _react2.default.createElement(
 	                                    'td',
